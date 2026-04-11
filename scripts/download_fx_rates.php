@@ -181,7 +181,7 @@ function main(): void
         [
             'label' => 'ICICI Forex Card Rate',
             'type' => 'html',
-            'url' => 'https://www.icicibank.in/corporate/global-markets/forex/forex-card-rate',
+            'url' => 'https://www.icici.bank.in/corporate/global-markets/forex/forex-card-rate',
             'filename' => 'icici-forex-card-rates.pdf',
             'htmlFilename' => 'icici-forex-card-rates.html',
             'bank' => 'icici',
