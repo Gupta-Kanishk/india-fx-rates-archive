@@ -60,15 +60,13 @@ jobs:
         id: email_body
         run: |
           TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
-          cat <<'EOF' >> $GITHUB_OUTPUT
-body<<'EOB'
-Daily FX rates have been successfully downloaded and committed.
-
-Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-Time: $TIMESTAMP
-EOB
-EOF
+          echo "body<<EOF" >> "$GITHUB_OUTPUT"
+          echo "Daily FX rates have been successfully downloaded and committed." >> "$GITHUB_OUTPUT"
+          echo "" >> "$GITHUB_OUTPUT"
+          echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+          echo "" >> "$GITHUB_OUTPUT"
+          echo "Time: $TIMESTAMP" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Send notification email
         if: steps.changes.outputs.has_changes == 'true'
