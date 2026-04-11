@@ -6,6 +6,7 @@ Downloads and archives daily forex card/treasury FX rates from major Indian bank
 
 import os
 import subprocess
+import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -78,7 +79,6 @@ def convert_url_to_pdf_with_wkhtmltopdf(url: str, destination: str) -> bool:
         if os.path.exists(destination):
             os.remove(destination)
 
-        # Use wkhtmltopdf to convert URL to PDF
         result = subprocess.run([
             'wkhtmltopdf',
             '--quiet',
@@ -96,6 +96,45 @@ def convert_url_to_pdf_with_wkhtmltopdf(url: str, destination: str) -> bool:
         if os.path.exists(destination):
             os.remove(destination)
         return False
+
+
+def convert_html_to_pdf_with_wkhtmltopdf(html: str, destination: str) -> bool:
+    """Convert HTML content to PDF using wkhtmltopdf."""
+    if not is_command_available('wkhtmltopdf'):
+        return False
+
+    tmp_path = None
+    try:
+        with tempfile.NamedTemporaryFile('w', suffix='.html', delete=False, encoding='utf-8') as tmp_html:
+            tmp_html.write(html)
+            tmp_path = tmp_html.name
+
+        if os.path.exists(destination):
+            os.remove(destination)
+
+        result = subprocess.run([
+            'wkhtmltopdf',
+            '--quiet',
+            '--disable-smart-shrinking',
+            '--print-media-type',
+            '--page-size', 'A4',
+            '--orientation', 'Portrait',
+            tmp_path,
+            destination
+        ], capture_output=True, text=True, timeout=300)
+
+        return result.returncode == 0 and os.path.exists(destination) and os.path.getsize(destination) > 0
+    except Exception as e:
+        print(f"  wkhtmltopdf error: {e}")
+        if os.path.exists(destination):
+            os.remove(destination)
+        return False
+    finally:
+        try:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+        except Exception:
+            pass
 
 
 def save_html_file(html: str, destination: str) -> bool:
@@ -160,19 +199,23 @@ def download_bank_rates(source: Dict[str, Any], bank_dir: str, date: str) -> Non
             print("  Note: This may be a temporary issue or website blocking. Check the URL manually.")
             return
 
-        # Try wkhtmltopdf first
+        # Try wkhtmltopdf first using the downloaded HTML content
         if is_command_available('wkhtmltopdf'):
             print("  Converting HTML page to PDF with wkhtmltopdf...")
-            if convert_url_to_pdf_with_wkhtmltopdf(source['url'], destination):
+            if convert_html_to_pdf_with_wkhtmltopdf(html, destination):
                 print(f"  ✓ Saved {destination}")
                 return
+            print("  PDF conversion failed. Saving raw HTML instead.")
 
         # Fallback: save raw HTML
         html_filename = source.get('htmlFilename', source['filename'].replace('.pdf', '.html'))
         html_destination = os.path.join(bank_dir, f"{date}-{html_filename}")
 
         if save_html_file(html, html_destination):
-            print(f"  wkhtmltopdf not available. Saved raw HTML to {html_destination}")
+            if is_command_available('wkhtmltopdf'):
+                print(f"  wkhtmltopdf was available but conversion failed. Saved raw HTML to {html_destination}")
+            else:
+                print(f"  wkhtmltopdf not available. Saved raw HTML to {html_destination}")
             return
 
         print(f"  Failed to save HTML file for {source['label']}")
