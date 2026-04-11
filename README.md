@@ -27,7 +27,7 @@ A public automated repository that **downloads and archives daily forex card / t
 - `banks/sbi/` — SBI PDF archive
 - `banks/icici/` — ICICI HTML + PDF archive
 - `banks/iob/` — IOB HTML + PDF archive
-- `scripts/download_fx_rates.php` — Downloads source files and converts HTML pages to PDF
+- `scripts/download_fx_rates.py` — Downloads source files and converts HTML pages to PDF
 - `scripts/update_repo.sh` — Runs download, commits changes, and pushes to GitHub
 
 ## Setup
@@ -41,8 +41,8 @@ This repository is configured to automatically download FX rates every day using
 The workflow (`.github/workflows/download-fx-rates.yml`) runs daily at 00:00 UTC:
 
 1. Checks out the repository
-2. Sets up PHP with required extensions (curl, dom)
-3. Runs `scripts/download_fx_rates.php` to fetch the latest rates
+2. Sets up Python with required dependencies (requests)
+3. Runs `scripts/download_fx_rates.py` to fetch the latest rates
 4. Automatically commits and pushes changes if any new rates are found
 
 #### Manual Trigger
@@ -76,7 +76,7 @@ Common cron examples:
 To test or run manually on your machine:
 
 ```bash
-php scripts/download_fx_rates.php
+python scripts/download_fx_rates.py
 ```
 
 With git commit and push:
@@ -133,6 +133,6 @@ You can modify the workflow file to use SMTP settings from your email provider (
 ## Troubleshooting
 
 - **Workflow not running?** Check the **Actions** tab → workflow runs for error logs.
-- **Missing dependencies?** The GitHub Actions workflow automatically installs PHP and required extensions.
-- **Need to debug?** Run `php scripts/download_fx_rates.php` locally to test the script directly.
+- **Missing dependencies?** The GitHub Actions workflow automatically installs Python and required packages.
+- **Need to debug?** Run `python scripts/download_fx_rates.py` locally to test the script directly.
 - **Files not committing?** Ensure the workflow has **write** permissions to repository contents (checked automatically).

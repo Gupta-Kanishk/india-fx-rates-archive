@@ -18,14 +18,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          php-version: '8.2'
-          extensions: curl, dom
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run FX rates download script
-        run: php scripts/download_fx_rates.php
+        run: python scripts/download_fx_rates.py
 
       - name: Stage downloaded files
         run: git add banks
