@@ -82,6 +82,9 @@ def convert_url_to_pdf_with_wkhtmltopdf(url: str, destination: str) -> bool:
         result = subprocess.run([
             'wkhtmltopdf',
             '--quiet',
+            '--enable-javascript',
+            '--javascript-delay', '3000',
+            '--no-stop-slow-scripts',
             '--disable-smart-shrinking',
             '--print-media-type',
             '--page-size', 'A4',
@@ -115,6 +118,9 @@ def convert_html_to_pdf_with_wkhtmltopdf(html: str, destination: str) -> bool:
         result = subprocess.run([
             'wkhtmltopdf',
             '--quiet',
+            '--enable-javascript',
+            '--javascript-delay', '3000',
+            '--no-stop-slow-scripts',
             '--disable-smart-shrinking',
             '--print-media-type',
             '--page-size', 'A4',
