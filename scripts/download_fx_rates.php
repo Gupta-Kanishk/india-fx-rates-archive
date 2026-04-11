@@ -10,6 +10,11 @@ function ensureDirectory(string $path): void
 
 function downloadFile(string $url, string $destination): bool
 {
+    // Remove existing file if it exists
+    if (file_exists($destination)) {
+        @unlink($destination);
+    }
+
     $ch = curl_init($url);
     if ($ch === false) {
         return false;
@@ -24,8 +29,10 @@ function downloadFile(string $url, string $destination): bool
     curl_setopt($ch, CURLOPT_FILE, $fp);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_FAILONERROR, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)');
-    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36');
+    curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
     $success = curl_exec($ch);
     curl_close($ch);
@@ -49,13 +56,26 @@ function fetchHtml(string $url): ?string
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_FAILONERROR, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)');
-    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36');
+    curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language: en-US,en;q=0.5',
+        'Connection: keep-alive',
+    ]);
 
     $html = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    return $html === false ? null : $html;
+    if ($html === false || $httpCode >= 400) {
+        return null;
+    }
+
+    return $html;
 }
 
 function isCommandAvailable(string $command): bool
@@ -74,6 +94,11 @@ function convertUrlToPdfWithWkhtmltopdf(string $url, string $destination): bool
         return false;
     }
 
+    // Remove existing file if it exists
+    if (file_exists($destination)) {
+        @unlink($destination);
+    }
+
     $command = sprintf('wkhtmltopdf --quiet %s %s', escapeshellarg($url), escapeshellarg($destination));
     shell_exec($command);
 
@@ -84,6 +109,11 @@ function convertHtmlToPdfWithDompdf(string $html, string $destination, string $b
 {
     if (!class_exists('Dompdf\Dompdf')) {
         return false;
+    }
+
+    // Remove existing file if it exists
+    if (file_exists($destination)) {
+        @unlink($destination);
     }
 
     $dompdf = new Dompdf\Dompdf();
@@ -101,6 +131,10 @@ function convertHtmlToPdfWithDompdf(string $html, string $destination, string $b
 
 function saveHtmlFile(string $html, string $destination): bool
 {
+    // Remove existing file if it exists
+    if (file_exists($destination)) {
+        @unlink($destination);
+    }
     return file_put_contents($destination, $html) !== false;
 }
 
@@ -125,7 +159,8 @@ function downloadBankRates(array $source, string $bankDir, string $date): void
         echo "Fetching {$source['label']} page...\n";
         $html = fetchHtml($source['url']);
         if ($html === null) {
-            echo "  Failed to fetch HTML from {$source['url']}\n";
+            echo "  ⚠ Failed to fetch HTML from {$source['url']}\n";
+            echo "  Note: This may be a temporary issue or website blocking. Check the URL manually.\n";
             return;
         }
 
