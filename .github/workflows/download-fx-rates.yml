@@ -51,6 +51,11 @@ jobs:
           git commit -m "Update FX rates: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           git push origin main
 
+      - name: Get current timestamp
+        if: steps.changes.outputs.has_changes == 'true'
+        id: timestamp
+        run: echo "time=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+
       - name: Send notification email
         if: steps.changes.outputs.has_changes == 'true'
         uses: dawidd6/action-send-mail@v3
@@ -66,4 +71,4 @@ jobs:
             Daily FX rates have been successfully downloaded and committed.
             
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            Time: $(date -u +'%Y-%m-%d %H:%M:%S UTC')
+            Time: ${{ steps.timestamp.outputs.time }}
