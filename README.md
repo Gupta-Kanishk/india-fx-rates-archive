@@ -32,65 +32,80 @@ A public automated repository that **downloads and archives daily forex card / t
 
 ## Setup
 
-### 1. Clone this repo to cPanel
+### Automatic Daily Downloads with GitHub Actions
 
-Use SSH if possible:
+This repository is configured to automatically download FX rates every day using **GitHub Actions**. No external hosting or cron setup is required!
 
-```bash
-cd ~/public_html
-git clone git@github.com:<your-user>/<your-repo>.git
-cd <your-repo>
-chmod +x scripts/update_repo.sh
+#### How it works
+
+The workflow (`.github/workflows/download-fx-rates.yml`) runs daily at 00:00 UTC:
+
+1. Checks out the repository
+2. Sets up PHP with required extensions (curl, dom)
+3. Runs `scripts/download_fx_rates.php` to fetch the latest rates
+4. Automatically commits and pushes changes if any new rates are found
+
+#### Manual Trigger
+
+You can also trigger the workflow manually:
+
+1. Go to your repository on GitHub
+2. Click the **Actions** tab
+3. Select **"Download FX Rates"** workflow
+4. Click **Run workflow** → **Run workflow**
+
+#### Customize the Schedule
+
+To change the daily run time, edit [.github/workflows/download-fx-rates.yml](.github/workflows/download-fx-rates.yml):
+
+```yaml
+on:
+  schedule:
+    # Change the cron time (in UTC) as needed
+    - cron: '0 12 * * *'  # Daily at 12:00 UTC (noon)
 ```
 
-If you cannot use SSH, set up a GitHub personal access token and use HTTPS.
+Common cron examples:
+- `0 6 * * *` — Daily at 06:00 UTC
+- `0 12 * * *` — Daily at 12:00 UTC (noon)
+- `0 18 * * *` — Daily at 18:00 UTC
+- `0 */6 * * *` — Every 6 hours
 
-### 2. Install conversion tools (optional)
+#### Run Locally
 
-For HTML pages, the script tries to convert using `wkhtmltopdf` first.
-If `wkhtmltopdf` is not installed, the script saves the raw HTML page as a fallback.
-
-On cPanel, ask your host to enable `wkhtmltopdf` or install it in your account.
-
-### 3. Run manually once
+To test or run manually on your machine:
 
 ```bash
-cd ~/public_html/<your-repo>
 php scripts/download_fx_rates.php
 ```
 
-### 4. Set up a cPanel Cron job
-
-Use cPanel Cron Jobs to run the update script every day.
-
-Example command:
+With git commit and push:
 
 ```bash
-cd /home/<username>/public_html/<your-repo> && ./scripts/update_repo.sh >> /home/<username>/fx-rates.log 2>&1
+./scripts/update_repo.sh
 ```
 
-Example schedule:
-- `0 06 * * *` — run every day at 06:00 server time
+#### Workflow Permissions
 
-### 5. Configure GitHub Push
+The workflow requires write access to the repository contents, which is configured via the **permissions** section in the workflow file. No additional setup needed!
 
-If using SSH, ensure your cPanel user has an SSH key added to GitHub.
+#### Verify Output
 
-If using HTTPS, set your remote URL with a personal access token (not recommended for security reasons):
-
-```bash
-git remote set-url origin https://<github-username>:<token>@github.com/<github-username>/<repo>.git
-```
-
-### 6. Verify output
-
-After a successful run, the new files will be saved in:
-- `banks/hdfc/`
-- `banks/sbi/`
-- `banks/icici/`
-- `banks/iob/`
+After each successful run, the new files appear in:
+- `banks/hdfc/` — HDFC PDFs
+- `banks/sbi/` — SBI PDFs
+- `banks/icici/` — ICICI PDFs/HTML
+- `banks/iob/` — IOB PDFs/HTML
 
 PDF files are named like `YYYY-MM-DD-<source-name>.pdf`.
+
+#### Check Workflow Status
+
+View the workflow runs and logs:
+1. Go to your repository on GitHub
+2. Click the **Actions** tab
+3. Click the **"Download FX Rates"** workflow
+4. View run history and logs
 
 ## Notes
 
@@ -100,5 +115,6 @@ PDF files are named like `YYYY-MM-DD-<source-name>.pdf`.
 
 ## Troubleshooting
 
-- If `php scripts/download_fx_rates.php` fails, verify that `curl` is enabled in PHP.
-- If the cron job does not push, confirm `git` is available in your cPanel account and `origin` is configured correctly.
+- **Workflow not running?** Check the **Actions** tab → workflow runs for error logs.
+- **Missing dependencies?** The GitHub Actions workflow automatically installs PHP and required extensions.
+- **Need to debug?** Run `php scripts/download_fx_rates.php` locally to test the script directly.
