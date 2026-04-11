@@ -1,0 +1,6 @@
+# Ignore local runtime and editor files
+/vendor/
+*.log
+*.tmp
+*.cache
+.DS_Store
