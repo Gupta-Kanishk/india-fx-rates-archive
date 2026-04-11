@@ -107,6 +107,23 @@ View the workflow runs and logs:
 3. Click the **"Download FX Rates"** workflow
 4. View run history and logs
 
+#### Email Notifications (Optional)
+
+To receive email notifications whenever FX rates are successfully updated, set up GitHub Secrets:
+
+**Option 1: Using Gmail**
+
+1. [Create a Gmail App Password](https://myaccount.google.com/apppasswords) (requires 2FA enabled)
+2. Go to your repository → **Settings** → **Secrets and variables** → **Actions**
+3. Add two secrets:
+   - `EMAIL_USERNAME` — your Gmail address (e.g., `your-email@gmail.com`)
+   - `EMAIL_PASSWORD` — your Gmail app password
+4. Email notifications will be sent to `analyst.kanishk@gmail.com` on each successful update
+
+**Option 2: Using another email provider**
+
+You can modify the workflow file to use SMTP settings from your email provider (Outlook, Yahoo, etc.). Edit the `Send notification email` step in [.github/workflows/download-fx-rates.yml](.github/workflows/download-fx-rates.yml) with your provider's SMTP details.
+
 ## Notes
 
 - HDFC and SBI are downloaded directly as PDFs.
@@ -118,3 +135,4 @@ View the workflow runs and logs:
 - **Workflow not running?** Check the **Actions** tab → workflow runs for error logs.
 - **Missing dependencies?** The GitHub Actions workflow automatically installs PHP and required extensions.
 - **Need to debug?** Run `php scripts/download_fx_rates.php` locally to test the script directly.
+- **Files not committing?** Ensure the workflow has **write** permissions to repository contents (checked automatically).

@@ -27,10 +27,13 @@ jobs:
       - name: Run FX rates download script
         run: php scripts/download_fx_rates.php
 
+      - name: Stage downloaded files
+        run: git add banks
+
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet && git diff --cached --quiet; then
+          if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -45,6 +48,22 @@ jobs:
       - name: Commit and push changes
         if: steps.changes.outputs.has_changes == 'true'
         run: |
-          git add banks
           git commit -m "Update FX rates: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           git push origin main
+
+      - name: Send notification email
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: 'FX Rates Updated - ${{ github.run_number }}'
+          to: analyst.kanishk@gmail.com
+          from: 'FX Rates Bot'
+          body: |
+            Daily FX rates have been successfully downloaded and committed.
+            
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Time: $(date -u +'%Y-%m-%d %H:%M:%S UTC')
