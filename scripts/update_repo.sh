@@ -5,8 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${SCRIPT_DIR}/.."
 cd "${REPO_ROOT}"
 
-if ! command -v php >/dev/null 2>&1; then
-  echo "Error: php is required but not installed or not available in PATH."
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "Error: python3 is required but not installed or not available in PATH."
   exit 1
 fi
 
@@ -15,7 +15,7 @@ if ! command -v git >/dev/null 2>&1; then
   exit 1
 fi
 
-php scripts/download_fx_rates.php
+python3 scripts/download_fx_rates.py
 
 git add banks
 

@@ -5,14 +5,11 @@ Downloads and archives daily forex card/treasury FX rates from major Indian bank
 """
 
 import os
-import sys
-import shutil
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 import requests
-from urllib.parse import urlparse
 
 
 def ensure_directory(path: str) -> None:
@@ -160,7 +157,7 @@ def download_bank_rates(source: Dict[str, Any], bank_dir: str, date: str) -> Non
 
         if html is None:
             print(f"  ⚠ Failed to fetch HTML from {source['url']}")
-            print("  Note: This may be a temporary issue or website blocking. Check the URL manually."
+            print("  Note: This may be a temporary issue or website blocking. Check the URL manually.")
             return
 
         # Try wkhtmltopdf first
@@ -186,16 +183,13 @@ def download_bank_rates(source: Dict[str, Any], bank_dir: str, date: str) -> Non
 
 def main() -> None:
     """Main function to download all bank rates."""
-    # Set timezone to Asia/Kolkata
-    os.environ['TZ'] = 'Asia/Kolkata'
-
     # Get script directory and set up paths
     script_dir = Path(__file__).parent
     base_dir = script_dir.parent
     bank_root = base_dir / 'banks'
 
-    # Get current date in YYYY-MM-DD format
-    current_date = datetime.now().strftime('%Y-%m-%d')
+    # Use fixed India/Kolkata offset for date generation
+    current_date = datetime.now(timezone(timedelta(hours=5, minutes=30))).strftime('%Y-%m-%d')
 
     # Bank sources configuration
     sources = [
