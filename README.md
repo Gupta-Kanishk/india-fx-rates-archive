@@ -18,6 +18,7 @@ A public automated repository that **downloads and archives daily forex card / t
 - 📥 Automatic daily download using cPanel Cron
 - 📄 Saves source PDFs directly when available
 - 🌐 Converts HTML rate pages into PDF snapshots
+- 🧾 Exports parsed FX rates into a consolidated Excel workbook for all 4 banks
 - 🗂 Organizes files bank-wise and date-wise
 - 🔁 Automatically pushes updates to GitHub
 - 📚 Maintains historical FX rate archive
@@ -77,6 +78,7 @@ To test or run manually on your machine:
 
 ```bash
 python scripts/download_fx_rates.py
+python scripts/export_fx_rates_to_excel.py
 ```
 
 With git commit and push:

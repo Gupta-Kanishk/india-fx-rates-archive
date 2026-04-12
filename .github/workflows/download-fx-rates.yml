@@ -2,8 +2,8 @@ name: Download FX Rates
 
 on:
   schedule:
-    # Run daily at 12:00 UTC (noon)
-    - cron: '0 12 * * *'
+    # Run daily at 12:00 IST / 06:30 UTC
+    - cron: '30 6 * * *'
   # Allow manual trigger from GitHub UI
   workflow_dispatch:
 
@@ -35,6 +35,9 @@ jobs:
 
       - name: Run FX rates download script
         run: python scripts/download_fx_rates.py
+
+      - name: Export FX rates to Excel
+        run: python scripts/export_fx_rates_to_excel.py
 
       - name: Stage downloaded files
         run: git add banks
