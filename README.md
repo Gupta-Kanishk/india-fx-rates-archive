@@ -15,7 +15,7 @@ A public automated repository that **downloads and archives daily forex card / t
 - IOB: Website rendered as PDF
 
 ## Features
-- 📥 Automatic daily download using cPanel Cron
+- 📥 Automatic daily download using GitHub Actions
 - 📄 Saves source PDFs directly when available
 - 🌐 Converts HTML rate pages into PDF snapshots
 - 🧾 Exports parsed daily TT Buy/Sell rates into a consolidated Excel workbook for all 4 banks
