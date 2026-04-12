@@ -18,7 +18,7 @@ A public automated repository that **downloads and archives daily forex card / t
 - 📥 Automatic daily download using cPanel Cron
 - 📄 Saves source PDFs directly when available
 - 🌐 Converts HTML rate pages into PDF snapshots
-- 🧾 Exports parsed FX rates into a consolidated Excel workbook for all 4 banks
+- 🧾 Exports parsed daily TT Buy/Sell rates into a consolidated Excel workbook for all 4 banks
 - 🗂 Organizes files bank-wise and date-wise
 - 🔁 Automatically pushes updates to GitHub
 - 📚 Maintains historical FX rate archive
@@ -39,7 +39,7 @@ This repository is configured to automatically download FX rates every day using
 
 #### How it works
 
-The workflow (`.github/workflows/download-fx-rates.yml`) runs daily at 00:00 UTC:
+The workflow (`.github/workflows/download-fx-rates.yml`) runs daily at 06:30 UTC (12:00 PM IST):
 
 1. Checks out the repository
 2. Sets up Python with required dependencies (requests)
@@ -63,7 +63,7 @@ To change the daily run time, edit [.github/workflows/download-fx-rates.yml](.gi
 on:
   schedule:
     # Change the cron time (in UTC) as needed
-    - cron: '0 12 * * *'  # Daily at 12:00 UTC (noon)
+    - cron: '30 6 * * *'  # Daily at 06:30 UTC / 12:00 PM IST
 ```
 
 Common cron examples:
@@ -80,6 +80,15 @@ To test or run manually on your machine:
 python scripts/download_fx_rates.py
 python scripts/export_fx_rates_to_excel.py
 ```
+
+The Excel output is saved to `banks/fx_rates.xlsx` and includes one sheet per bank with:
+- `Date`
+- `Currency`
+- `Currency Code`
+- `TT Buy`
+- `TT Sell`
+
+This workbook stores only published TT rates for each bank.
 
 With git commit and push:
 
