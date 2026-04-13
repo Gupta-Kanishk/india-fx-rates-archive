@@ -18,7 +18,7 @@ A public automated repository that **downloads and archives daily forex card / t
 - 📥 Automatic daily download using GitHub Actions
 - 📄 Saves source PDFs directly when available
 - 🌐 Converts HTML rate pages into PDF snapshots
-- 🧾 Exports parsed daily TT Buy/Sell rates into a consolidated Excel workbook for all 4 banks
+- 🧾 Exports parsed daily TT Buy/Sell rates into a consolidated CSV file for all 4 banks
 - 🗂 Organizes files bank-wise and date-wise
 - 🔁 Automatically pushes updates to GitHub
 - 📚 Maintains historical FX rate archive
@@ -78,17 +78,18 @@ To test or run manually on your machine:
 
 ```bash
 python scripts/download_fx_rates.py
-python scripts/export_fx_rates_to_excel.py
+python scripts/export_fx_rates_to_csv.py
 ```
 
-The Excel output is saved to `banks/fx_rates.xlsx` and includes one sheet per bank with:
+The CSV output is saved to `banks/fx_rates.csv` and includes all banks in a single file with:
+- `Bank`
 - `Date`
 - `Currency`
 - `Currency Code`
 - `TT Buy`
 - `TT Sell`
 
-This workbook stores only published TT rates for each bank.
+This file preserves historical rate records and appends new updates without removing previous entries.
 
 With git commit and push:
 

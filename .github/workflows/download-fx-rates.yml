@@ -36,8 +36,8 @@ jobs:
       - name: Run FX rates download script
         run: python scripts/download_fx_rates.py
 
-      - name: Export FX rates to Excel
-        run: python scripts/export_fx_rates_to_excel.py
+      - name: Export FX rates to CSV
+        run: python scripts/export_fx_rates_to_csv.py
 
       - name: Stage downloaded files
         run: git add banks
