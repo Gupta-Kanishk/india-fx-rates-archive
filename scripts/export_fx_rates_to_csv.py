@@ -362,7 +362,7 @@ def parse_iob(bank_dir: Path) -> Optional[pd.DataFrame]:
     if len(rows) < 3:
         return None
 
-    date = extract_date_from_html(html_file)
+    date = extract_date_from_filename(html_file) or extract_date_from_html(html_file)
     rate_header = rows[1]
     first_data = rows[2]
     if len(rate_header) + 2 == len(first_data) and re.search(r"unit", rows[0][0] if rows[0] else "", re.I):
