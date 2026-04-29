@@ -39,6 +39,16 @@ jobs:
       - name: Export FX rates to CSV
         run: python scripts/export_fx_rates_to_csv.py
 
+      - name: Upload to Neon DB
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "DATABASE_URL secret not configured, skipping Neon upload."
+            exit 0
+          fi
+          python scripts/upload_to_neon.py
+
       - name: Stage downloaded files
         run: git add banks
 
@@ -67,14 +77,52 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true'
         id: email_body
         run: |
-          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
-          echo "body<<EOF" >> "$GITHUB_OUTPUT"
-          echo "Daily FX rates have been successfully downloaded and committed." >> "$GITHUB_OUTPUT"
-          echo "" >> "$GITHUB_OUTPUT"
-          echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> "$GITHUB_OUTPUT"
-          echo "" >> "$GITHUB_OUTPUT"
-          echo "Time: $TIMESTAMP" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+          python3 - << 'PYEOF'
+          import json, os
+          from pathlib import Path
+
+          stats_file = Path("/tmp/neon_stats.json")
+          stats = json.loads(stats_file.read_text()) if stats_file.exists() else {}
+
+          bank_stats  = stats.get("bank_stats", {})
+          upserted    = stats.get("upserted", "N/A")
+          total_csv   = stats.get("total_csv_rows", "N/A")
+          run_at      = stats.get("run_at", "N/A")
+          run_url     = "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          sep = "-" * 58
+          lines = [
+              "Daily FX Rates Update",
+              "=" * 58,
+              f"Time : {run_at}",
+              f"Run  : {run_url}",
+              "",
+              "Neon DB — Bank-Level Summary:",
+              sep,
+              f"{'Bank':<8} {'Dates':>6}  {'Rows':>6}  {'Latest':<12}  {'Earliest'}",
+              sep,
+          ]
+          total_db_rows = 0
+          for bank, s in sorted(bank_stats.items()):
+              total_db_rows += s["total_rows"]
+              lines.append(
+                  f"{bank:<8} {s['unique_dates']:>6}  {s['total_rows']:>6}  "
+                  f"{s['latest']:<12}  {s['earliest']}"
+              )
+          lines += [
+              sep,
+              f"Total rows in DB  : {total_db_rows}",
+              f"Rows upserted now : {upserted}",
+              f"CSV rows          : {total_csv}",
+          ]
+
+          body = "\n".join(lines)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write("body<<BODYEOF\n")
+              f.write(body + "\n")
+              f.write("BODYEOF\n")
+          print(body)
+          PYEOF
 
       - name: Send notification email
         if: steps.changes.outputs.has_changes == 'true'

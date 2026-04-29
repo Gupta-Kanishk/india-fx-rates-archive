@@ -23,8 +23,10 @@ CURRENCY_NORMALIZATION: Dict[str, Tuple[str, str]] = {
     "euro": ("Euro", "EUR"),
     "gbp": ("British Pound", "GBP"),
     "british pound": ("British Pound", "GBP"),
+    "great britain pound": ("British Pound", "GBP"),
     "jpy": ("Japanese Yen", "JPY"),
     "japanese yen": ("Japanese Yen", "JPY"),
+    "yen": ("Japanese Yen", "JPY"),
     "aud": ("Australian Dollar", "AUD"),
     "australian dollar": ("Australian Dollar", "AUD"),
     "cad": ("Canadian Dollar", "CAD"),
@@ -34,6 +36,7 @@ CURRENCY_NORMALIZATION: Dict[str, Tuple[str, str]] = {
     "inr": ("Indian Rupee", "INR"),
     "indian rupee": ("Indian Rupee", "INR"),
     "cny": ("Chinese Yuan", "CNY"),
+    "cnh": ("Chinese Yuan (Offshore)", "CNH"),
     "chinese yuan": ("Chinese Yuan", "CNY"),
     "nzd": ("New Zealand Dollar", "NZD"),
     "new zealand dollar": ("New Zealand Dollar", "NZD"),
@@ -43,8 +46,47 @@ CURRENCY_NORMALIZATION: Dict[str, Tuple[str, str]] = {
     "swiss franc": ("Swiss Franc", "CHF"),
     "dkk": ("Danish Krone", "DKK"),
     "danish krone": ("Danish Krone", "DKK"),
+    "danish kroner": ("Danish Krone", "DKK"),
     "hkd": ("Hong Kong Dollar", "HKD"),
     "hong kong dollar": ("Hong Kong Dollar", "HKD"),
+    "bhd": ("Bahraini Dinar", "BHD"),
+    "bahraini dinar": ("Bahraini Dinar", "BHD"),
+    "bdt": ("Bangladeshi Taka", "BDT"),
+    "bangladeshi taka": ("Bangladeshi Taka", "BDT"),
+    "kes": ("Kenyan Shilling", "KES"),
+    "kenyan shilling": ("Kenyan Shilling", "KES"),
+    "krw": ("Korean Won", "KRW"),
+    "korean won": ("Korean Won", "KRW"),
+    "won": ("Korean Won", "KRW"),
+    "kwd": ("Kuwaiti Dinar", "KWD"),
+    "kuwaiti dinar": ("Kuwaiti Dinar", "KWD"),
+    "lkr": ("Sri Lankan Rupee", "LKR"),
+    "srilankan rupee": ("Sri Lankan Rupee", "LKR"),
+    "sri lankan rupee": ("Sri Lankan Rupee", "LKR"),
+    "myr": ("Malaysian Ringgit", "MYR"),
+    "malaysian ringgit": ("Malaysian Ringgit", "MYR"),
+    "nok": ("Norwegian Krone", "NOK"),
+    "norwegian kroner": ("Norwegian Krone", "NOK"),
+    "norwegian krone": ("Norwegian Krone", "NOK"),
+    "omr": ("Omani Rial", "OMR"),
+    "omani riyal": ("Omani Rial", "OMR"),
+    "pkr": ("Pakistani Rupee", "PKR"),
+    "pakistani rupee": ("Pakistani Rupee", "PKR"),
+    "qar": ("Qatari Riyal", "QAR"),
+    "qatari rial": ("Qatari Riyal", "QAR"),
+    "qatari riyal": ("Qatari Riyal", "QAR"),
+    "rub": ("Russian Ruble", "RUB"),
+    "ruble": ("Russian Ruble", "RUB"),
+    "sar": ("Saudi Riyal", "SAR"),
+    "saudi arabian riyal": ("Saudi Riyal", "SAR"),
+    "sek": ("Swedish Krona", "SEK"),
+    "swedish krona": ("Swedish Krona", "SEK"),
+    "thb": ("Thai Baht", "THB"),
+    "thai baht": ("Thai Baht", "THB"),
+    "try": ("Turkish Lira", "TRY"),
+    "turkish lira": ("Turkish Lira", "TRY"),
+    "zar": ("South African Rand", "ZAR"),
+    "south african rand": ("South African Rand", "ZAR"),
 }
 
 
@@ -297,7 +339,12 @@ def parse_sbi(bank_dir: Path) -> Optional[pd.DataFrame]:
         return None
 
     date = extract_date_from_pdf(pdf_file)
-    header_row = rows[0]
+    header_row = next(
+        (row for row in rows if any(re.search(r"tt\s*buy|tt\s*sell", normalize_cell(cell), re.I) for cell in row)),
+        None,
+    )
+    if not header_row:
+        return None
     tt_buy_index = find_column_index(header_row, TT_BUY_PATTERN)
     tt_sell_index = find_column_index(header_row, TT_SELL_PATTERN)
     currency_index = next((i for i, value in enumerate(header_row) if re.search(r"currency", value or "", re.I)), 0)
@@ -305,11 +352,24 @@ def parse_sbi(bank_dir: Path) -> Optional[pd.DataFrame]:
     if tt_buy_index is None or tt_sell_index is None:
         return None
 
+    data_start = rows.index(header_row) + 1
     records = []
-    for row in rows[1:]:
+    for row in rows[data_start:]:
         if len(row) <= max(currency_index, tt_buy_index, tt_sell_index):
             continue
-        currency, code = currency_name_and_code(row[currency_index], fallback_code=row[code_index] if len(row) > code_index else "")
+        # SBI code column is "USD/INR" format - extract just the foreign ISO code
+        raw_code_cell = normalize_cell(row[code_index] if len(row) > code_index else "")
+        if "/" in raw_code_cell:
+            iso_code = raw_code_cell.split("/")[0].strip().upper()
+        else:
+            iso_code = raw_code_cell.strip().upper()
+        # Use iso_code as authoritative source via canonical_currency
+        if iso_code:
+            can_name, can_code = canonical_currency(iso_code)
+            currency = can_name if can_name else normalize_cell(row[currency_index])
+            code = can_code if can_code else iso_code
+        else:
+            currency, code = currency_name_and_code(row[currency_index])
         tt_buy = normalize_cell(row[tt_buy_index])
         tt_sell = normalize_cell(row[tt_sell_index])
         if not currency or (not tt_buy and not tt_sell):

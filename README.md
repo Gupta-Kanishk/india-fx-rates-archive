@@ -1,6 +1,6 @@
 # 🇮🇳 India FX Rates Archive
 
-A public automated repository that **downloads and archives daily forex card / treasury FX rates** from major Indian banks.
+A public automated repository that **downloads, archives, and stores daily forex card / treasury FX rates** from major Indian banks — both as flat CSV files and in a managed PostgreSQL database (Neon).
 
 ## Supported Banks
 - HDFC Bank
@@ -22,13 +22,18 @@ A public automated repository that **downloads and archives daily forex card / t
 - 🗂 Organizes files bank-wise and date-wise
 - 🔁 Automatically pushes updates to GitHub
 - 📚 Maintains historical FX rate archive
+- 🐘 Upserts rates into **Neon PostgreSQL** (no duplicates, idempotent)
+- 📊 Daily email summary with per-bank row counts, date ranges, and upsert stats
 
 ## Repository Layout
 - `banks/hdfc/` — HDFC PDF archive
 - `banks/sbi/` — SBI PDF archive
 - `banks/icici/` — ICICI HTML + PDF archive
 - `banks/iob/` — IOB HTML + PDF archive
+- `banks/fx_rates.csv` — Consolidated TT Buy/Sell rates for all banks and dates
 - `scripts/download_fx_rates.py` — Downloads source files and converts HTML pages to PDF
+- `scripts/export_fx_rates_to_csv.py` — Parses PDFs/HTML and writes `banks/fx_rates.csv`
+- `scripts/upload_to_neon.py` — Upserts CSV data into Neon PostgreSQL
 - `scripts/update_repo.sh` — Runs download, commits changes, and pushes to GitHub
 
 ## Setup
@@ -83,15 +88,18 @@ python scripts/export_fx_rates_to_csv.py
 
 The CSV output is saved to `banks/fx_rates.csv` and includes all banks in a single file with:
 - `Bank`
-- `Date`
-- `Currency`
-- `Currency Code`
-- `TT Buy`
-- `TT Sell`
-
+The CSV output is saved to `banks/fx_rates.csv` with columns:
 This file preserves historical rate records and appends new updates without removing previous entries.
+| Column | Description |
+|---|---|
+| `Bank` | Bank name (HDFC, SBI, ICICI, IOB) |
+| `Date` | Rate date (YYYY-MM-DD) |
+| `Currency` | Full currency name |
+| `Currency Code` | ISO 4217 code (USD, EUR, GBP …) |
+| `TT Buy` | TT Buying rate vs INR |
+| `TT Sell` | TT Selling rate vs INR |
 
-With git commit and push:
+This file preserves historical records and deduplicates on `(Bank, Date, Currency Code)`. New updates are appended; existing rows are never removed.
 
 ```bash
 ./scripts/update_repo.sh
@@ -108,6 +116,9 @@ After each successful run, the new files appear in:
 - `banks/sbi/` — SBI PDFs
 - `banks/icici/` — ICICI PDFs/HTML
 - `banks/iob/` — IOB PDFs/HTML
+- `banks/fx_rates.csv` — Updated consolidated CSV
+
+The Neon `fx_rates` table is also upserted with the latest records (no duplicates).
 
 PDF files are named like `YYYY-MM-DD-<source-name>.pdf`.
 
@@ -122,29 +133,87 @@ View the workflow runs and logs:
 #### Email Notifications (Optional)
 
 To receive email notifications whenever FX rates are successfully updated, set up GitHub Secrets:
+The notification email now includes a **per-bank summary table**:
+
+```
+Daily FX Rates Update
+==========================================================
+Time : 2026-04-29 06:32:01 UTC
+Run  : https://github.com/<org>/<repo>/actions/runs/<id>
+
+Neon DB — Bank-Level Summary:
+----------------------------------------------------------
+Bank      Dates    Rows  Latest        Earliest
+----------------------------------------------------------
+HDFC         11     292  2026-04-28    2026-04-13
+ICICI        11     264  2026-04-28    2026-04-13
+IOB          17     255  2026-04-28    2026-04-10
+SBI          13     400  2026-04-28    2026-04-10
+----------------------------------------------------------
+Total rows in DB  : 1211
+Rows upserted now : 35
+CSV rows          : 1215
+```
+
+To enable email and Neon DB, set up GitHub Secrets:
 
 **Option 1: Using Gmail**
 
 1. [Create a Gmail App Password](https://myaccount.google.com/apppasswords) (requires 2FA enabled)
 2. Go to your repository → **Settings** → **Secrets and variables** → **Actions**
 3. Add two secrets:
-   - `EMAIL_USERNAME` — your Gmail address (e.g., `your-email@gmail.com`)
-   - `EMAIL_PASSWORD` — your Gmail app password
-4. Email notifications will be sent to `analyst.kanishk@gmail.com` on each successful update
+  - `EMAIL_USERNAME` — your Gmail address
+  - `EMAIL_PASSWORD` — your Gmail app password
+4. Email notifications will be sent on each successful update
 
 **Option 2: Using another email provider**
 
 You can modify the workflow file to use SMTP settings from your email provider (Outlook, Yahoo, etc.). Edit the `Send notification email` step in [.github/workflows/download-fx-rates.yml](.github/workflows/download-fx-rates.yml) with your provider's SMTP details.
 
+#### Neon PostgreSQL Setup
+
+1. Create a [Neon](https://neon.tech) project
+2. Copy the connection string from the Neon dashboard
+3. Add it as a repository secret:
+   - `DATABASE_URL` — full Neon connection string (`postgresql://...?sslmode=require`)
+4. The workflow will automatically create the table and indexes on first run
+
+The `fx_rates` table schema:
+
+```sql
+CREATE TABLE fx_rates (
+  id            BIGSERIAL    PRIMARY KEY,
+  bank          VARCHAR(10)  NOT NULL,
+  rate_date     DATE         NOT NULL,
+  currency      VARCHAR(100) NOT NULL,
+  currency_code VARCHAR(10)  NOT NULL,
+  tt_buy        NUMERIC(14, 4),
+  tt_sell       NUMERIC(14, 4),
+  created_at    TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+  CONSTRAINT fx_rates_unique UNIQUE (bank, rate_date, currency_code)
+);
+```
+
+To backfill historical data manually:
+
+```bash
+DATABASE_URL="postgresql://..." python scripts/upload_to_neon.py
+```
+
 ## Notes
 
 - HDFC and SBI are downloaded directly as PDFs.
-- ICICI and IOB are converted from HTML to PDF when possible.
-- If conversion is unavailable, HTML snapshots are still saved under the same bank folder.
+- ICICI and IOB are converted from HTML to PDF when possible; HTML snapshots are saved as fallback.
+- SBI PDFs contain currency codes in `USD/INR` format — the parser extracts the foreign ISO code from the left side of the slash.
+- **31 currencies** are supported for SBI: AED, AUD, BDT, BHD, CAD, CHF, CNY, DKK, EUR, GBP, HKD, IDR, JPY, KES, KRW, KWD, LKR, MYR, NOK, NZD, OMR, PKR, QAR, RUB, SAR, SEK, SGD, THB, TRY, USD, ZAR.
+- The Neon upload step is gracefully skipped if `DATABASE_URL` is not configured.
 
 ## Troubleshooting
 
 - **Workflow not running?** Check the **Actions** tab → workflow runs for error logs.
-- **Missing dependencies?** The GitHub Actions workflow automatically installs Python and required packages.
-- **Need to debug?** Run `python scripts/download_fx_rates.py` locally to test the script directly.
-- **Files not committing?** Ensure the workflow has **write** permissions to repository contents (checked automatically).
+- **Missing dependencies?** The GitHub Actions workflow automatically installs Python and required packages (`pip install -r requirements.txt`).
+- **Need to debug?** Run locally: `python scripts/download_fx_rates.py && python scripts/export_fx_rates_to_csv.py`
+- **Files not committing?** Ensure the workflow has **write** permissions to repository contents (set in the workflow file).
+- **Neon upload failing?** Verify `DATABASE_URL` secret is set and includes `?sslmode=require`.
+- **SBI rates missing currencies?** Ensure the PDF URL is reachable — SBI occasionally moves the PDF path.
