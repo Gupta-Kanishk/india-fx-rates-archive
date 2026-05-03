@@ -128,11 +128,11 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
+          server_address: ${{ secrets.SMTP_SERVER_ADDRESS }}
+          server_port: ${{ secrets.SMTP_SERVER_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
           subject: 'FX Rates Updated - ${{ github.run_number }}'
-          to: analyst.kanishk@gmail.com
-          from: 'FX Rates Bot'
+          to: ${{ secrets.ALERT_EMAIL_RECIPIENT }}
+          from: ${{ secrets.SENDER_NAME }}
           body: ${{ steps.email_body.outputs.body }}
