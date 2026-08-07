@@ -213,7 +213,11 @@ DATABASE_URL="postgresql://..." python scripts/upload_to_neon.py
 
 This repository now includes a static GitHub Pages site built from `index.html`, `styles.css`, and `app.js` in the repository root.
 
-To publish it:
+The published site is available at:
+
+- `https://gupta-kanishk.github.io/india-fx-rates-archive/`
+
+To publish it manually:
 
 1. Go to the repository on GitHub.
 2. Click **Settings** → **Pages**.
