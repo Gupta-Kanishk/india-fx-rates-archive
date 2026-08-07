@@ -209,6 +209,19 @@ DATABASE_URL="postgresql://..." python scripts/upload_to_neon.py
 - **31 currencies** are supported for SBI: AED, AUD, BDT, BHD, CAD, CHF, CNY, DKK, EUR, GBP, HKD, IDR, JPY, KES, KRW, KWD, LKR, MYR, NOK, NZD, OMR, PKR, QAR, RUB, SAR, SEK, SGD, THB, TRY, USD, ZAR.
 - The Neon upload step is gracefully skipped if `DATABASE_URL` is not configured.
 
+## GitHub Pages Website
+
+This repository now includes a static GitHub Pages site built from `index.html`, `styles.css`, and `app.js` in the repository root.
+
+To publish it:
+
+1. Go to the repository on GitHub.
+2. Click **Settings** → **Pages**.
+3. Under **Source**, choose **main** branch and **/ (root)**.
+4. Save.
+
+The site reads `banks/fx_rates.csv` and shows an interactive chart with bank, currency, and timeframe selectors.
+
 ## Troubleshooting
 
 - **Workflow not running?** Check the **Actions** tab → workflow runs for error logs.

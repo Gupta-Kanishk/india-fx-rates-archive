@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>India FX Rates Archive</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">India FX Rates Archive</p>
+        <h1>Interactive FX rate chart</h1>
+        <p class="lead">Select a bank, currency, and timeframe to view TT Buy / Sell history from the consolidated FX archive.</p>
+      </div>
+      <div class="meta-card">
+        <strong>Data source</strong>
+        <p><code>banks/fx_rates.csv</code></p>
+      </div>
+    </header>
+
+    <section class="controls-card">
+      <div class="control-row">
+        <label for="bankSelect">Bank</label>
+        <select id="bankSelect" aria-label="Select bank"></select>
+      </div>
+      <div class="control-row">
+        <label for="currencySelect">Currency</label>
+        <select id="currencySelect" aria-label="Select currency"></select>
+      </div>
+      <div class="control-row">
+        <label for="timeframeSelect">Timeframe</label>
+        <select id="timeframeSelect" aria-label="Select timeframe">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="180">Last 180 days</option>
+          <option value="365">Last 365 days</option>
+          <option value="all">All dates</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="chart-card">
+      <div class="chart-header">
+        <div>
+          <p class="chart-title">TT Buy / TT Sell rate history</p>
+          <p id="chartSubtitle" class="chart-subtitle">Loading FX rates...</p>
+        </div>
+        <div id="statsPanel" class="stats-panel"></div>
+      </div>
+      <canvas id="fxChart" aria-label="FX rates chart" role="img"></canvas>
+      <div id="errorMessage" class="error-message" hidden></div>
+    </section>
+
+    <footer class="footer-note">
+      <p>Built from the repository data file. Enable GitHub Pages on branch <strong>main</strong> with the project root as source.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
