@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en" style="box-sizing: border-box; overflow-x: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="ICICI bank website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ICICI Bank</title>
+</head>
+
+<body style="margin: 0; padding:0; overflow-x: hidden; font-family: Arial; box-sizing: border-box;"> 
+<style>
+.btn-wrapper label {
+    margin: 10px;
+}
+</style>
+
+<!--header start-->
+<header class="desktop-header" style="padding: 5px 0 0;">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
+    <div class="header-top" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 5px;">
+    <div class="con-col logo">
+      <a class="logo" href="/"><img src="/failover-akamai/assets/images/icons/logo.png" alt="ICICI" /></a>
+    </div>
+
+    <div class="login-sec-wrap" style="display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: -15px;">
+	<div class="customer-care-num" style="border-right: 1px solid #e9e7e7;padding-right: 19px;margin-right: 10px;">
+                <div class="cust-wrap d-flex">
+                    <div class="cust-icon">
+                        <img src="/failover-akamai/assets/images/customer-care.png" alt="bank" style="height:35px; vertical-align: middle;">
+                    </div>
+                    
+                </div>
+            </div>
+	
+	
+       <div class="login-drop" style="background-image: url(/failover-akamai/assets/images/icons/triangel.svg); background-repeat: no-repeat; background-position: 85%;">
+        <select name="forma" onchange="location = this.value;" style="width: 145px; color: #4b4b4b; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: 1px solid #f37e20; border-radius: 15px; cursor: pointer; background: none; padding: 5px 22px 6px 10px; font-size: 11px; height: 25px; -webkit-appearance: none; line-height: 12px; outline: none;">
+          <option value="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_personalb_NRI_login_btn&_gl=1*4vy0bx*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDUyOTM3Ny42Mi4xLjE2NjQ1NDU0MjkuNTEuMC4w">Personal Banking</option>
+          <option value="https://cibnext.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_corp_primer_login_btn_desk&_ga=2.211592275.712315686.1664164375-422774797.1662631482&_gl=1*13kyl2m*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDU5ODgxOS42NC4xLjE2NjQ2MDI4MDEuNjAuMC4w">Corporate Banking</option>
+          <option value="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_personalb_NRI_login_btn&_gl=1*5hbek8*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDUyOTM3Ny42Mi4xLjE2NjQ1NDU1NTguNTEuMC4w">NRI Banking</option>
+          <option value="https://money2india.icicibank.com/?utm_source=NLI-ICICIBank-Homepage&utm_medium=referral&utm_campaign=NLI-promotion&_gl=1*1507v8r*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDUyOTM3Ny42Mi4xLjE2NjQ1NDU2MDMuNi4wLjA.">Money2India</option>
+          <option value="https://m2wnet.icicibank.co.in/STAR_M2W/showLogin">Money2World</option>
+         </select>
+       </div>
+       <div class="login-drop">
+        <a href="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_personalb_personal_login_btn&_ga=2.207524763.967467733.1663597386-1965830906.1653893150&_gl=1*1xgly8c*_ga*MTk2NTgzMDkwNi4xNjUzODkzMTUw*_ga_SKB78GHTFV*MTY2MzkwOTc4Ny4xMDUuMS4xNjYzOTE4Njc3LjYwLjAuMA.." style="width: 100px; background-color: #f37e20; font-size: 11px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; padding: 5px 15px 6px; text-decoration: none; position: relative;border-radius: 15px; color: #fff; border: 1px solid #f37e20; height: 25px;left: -17px; top: -2px;">LOGIN</a>
+       </div>
+
+    </div>
+     
+  </div>
+ </div>
+
+  <div class="nav" style="background: #fdf6f4; padding: 10px 0;">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
+    <ul style="padding: 0; margin: 0; display: flex; align-items: center; list-style: none; text-transform: uppercase;">
+      <li style="border-right: 1px solid rgba(7, 74, 134, 0.1); display: flex;align-items: center; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 93%;">
+        <img style="height: 20px; margin-right: 5px;" src="/failover-akamai/assets/images/icons/bank-icon-o.svg" alt="bank" />
+        <select name="forma" onchange="location = this.value;" style="width: 105px; color: #4b4b4b; font-size: 12px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: none; cursor: pointer; background: none; outline: none; text-transform: titlecase; -webkit-appearance: none; padding: 0 5px;">
+          <option value="">Accounts</option>
+          <option value="saving-account.html">Savings Account</option>
+		  <option value="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&CTA_FLAG=DEPOSIT">Deposits</option>
+		  <option value="forex.html">Forex</option>
+       
+         </select>
+      </li>
+      <li style="padding: 0 5px 0 8px; border-right: 1px solid rgba(7, 74, 134, 0.1); display: flex;align-items: center; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 89%;">
+        <img style="height: 20px; margin-right: 5px;" src="/failover-akamai/assets/images/icons/card-icon-o.svg" alt="bank" />
+        <select name="forma" onchange="location = this.value;" style="width: 75px; color: #4b4b4b; font-size: 12px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: none; cursor: pointer; background: none; outline: none; text-transform: titlecase; -webkit-appearance: none; padding: 0 5px">
+          <option value="">Cards</option>
+          <option value="credit-card.html">Credit Cards</option>
+       
+         </select>
+      </li>
+
+      <li style="padding: 0 6px 0 10px; border-right: 1px solid rgba(7, 74, 134, 0.1); display: flex;align-items: center; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 88%;">
+        <img style="height: 20px; margin-right: 5px;" src="/failover-akamai/assets/images/icons/loan-icon-o.svg" alt="bank" />
+        <select name="forma" onchange="location = this.value;" style="width: 75px; color: #4b4b4b; font-size: 12px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: none; cursor: pointer; background: none; outline: none; text-transform: titlecase; -webkit-appearance: none; padding: 0px 5px;">
+          <option value="">Loans</option>
+          <option value="personal-loan.html">Personal Loans</option>
+          <option value="home-loan.html">Home Loans</option>
+          <option value="car-loan.html">Car / Two-Wheeler Loans</option>
+		  <option value="gold-loan.html">Gold Loans</option>
+		  <option value="education-loan.html">Education Loans</option>
+         </select>
+      </li>
+
+      <li style="padding: 0 0px 0 5px; border-right: 1px solid rgba(7, 74, 134, 0.1); display: flex;align-items: center; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 85%;">
+        <img style="height: 20px; margin-right: 5px;" src="/failover-akamai/assets/images/icons/invest-icon-o.svg" alt="bank" />
+        <select name="forma" onchange="location = this.value;" style="width: 85px; color: #4b4b4b; font-size: 12px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: none; cursor: pointer; background: none; outline: none; text-transform: titlecase; -webkit-appearance: none; padding: 0 5px;">
+          <option value="">Invest</option>
+          <option value="fixed-deposit.html">Fixed Deposit (FD)</option>
+          <option value="recurring-deposit.html">Recurring Deposit (RD)</option>
+		  <option value="iwish-flexible.html">iWish Flexible RD</option>
+		  <option value="mutual-fund.html">Mutual Fund</option>
+		  <option value="insta-sip.html">Insta SIP</option>
+		  <option value="national-pension-scheme.html">National Pension Scheme</option>
+		  <option value="ppf.html">Public Provident Fund</option>
+		  
+         </select>
+      </li>
+
+      <li style="padding: 0 3px 0 8px; border-right: 1px solid rgba(7, 74, 134, 0.1); display: flex;align-items: center; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 89%;">
+        <img style="height: 20px; margin-right: 5px;" src="/failover-akamai/assets/images/icons/insure-icon-o.svg" alt="bank" />
+        <select name="forma" onchange="location = this.value;" style="width: 85px; color: #4b4b4b; font-size: 12px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: none; cursor: pointer; background: none; outline: none; text-transform: titlecase; -webkit-appearance: none; padding: 0px 5px;">
+          <option value="">Insure</option>
+          <option value="life-insurance.html">Life Insurance</option>
+          
+		 
+		  <option value="travel-insurance.html">Travel Insurance</option>
+		  
+		  
+		  
+         </select>
+      </li>
+      
+      <li style="padding: 0 5px 0 5px; display: flex;align-items: center; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 85%;">
+        <img style="height: 20px; margin-right: 5px;" src="/failover-akamai/assets/images/icons/pay-icon-o.svg" alt="bank" />
+        <select name="forma" onchange="location = this.value;" style="width: 55px; color: #4b4b4b; font-size: 12px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600; border: none; cursor: pointer; background: none; outline: none; text-transform: titlecase; -webkit-appearance: none; padding: 0 5px;">
+          <option value="">Pay</option>
+         <option value="money-transfer.html">Money Transfer</option>
+         
+          <option value="recharge.html">Recharge</option>
+       
+         
+          
+         </select>
+      </li>
+    
+
+    </ul>
+  </div>
+ 
+</div>  
+</header>
+
+<section class="banner-top" style="position: relative;">
+  <div class="banner-img" style="position: relative;">
+    <img src="/failover-akamai/assets/images/Generic-HL-d.jpg" alt="ICICI" style="width: 100%; height: 550px; object-fit: cover;" usemap="#banner">
+	
+	<map name="banner">
+	<area shape="rect" coords="1,1,1344,268" href="https://loans.icicibank.com/loans/home-loan/?_gl=1*1prqiyf*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDc4OTk5OS42OS4xLjE2NjQ3OTAwMjcuMzIuMC4w&_ga=2.37781475.1719058436.1664770961-422774797.1662631482#/home-loan-application">
+	</map>
+    
+      <div class="card-section" style="position: absolute; bottom: 0; width: 100%; bottom: 20px;">
+        <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
+          <div class="card-lists card-other-lists" style="display: flex;">
+            <div class="card-item" style="width: 620px; height: 230px; overflow: hidden; background: #fff; padding: 12px 15px; box-shadow: 0 2px 15px rgba(117,117,117,0.2); border-radius: 10px; min-height: 220px; margin: 0 10px 10px;">
+                <h5 style="font-weight: bold; color: #131317; font-size: 14px;color: #131317; margin: 0 0 10px;">Offers</h5>
+                <div class="offer-ul-slider" style="margin: 0 -10px; padding: 0 15px; display: flex;">
+                    <div class="offer-ul-list" style="padding: 0 5px; width: 50%;">
+                        <div class="offer-ul-card" style="margin-bottom: 20px;     display: flex; align-items: flex-start;">
+                            
+                          <div class="icon" style="width: 40px; margin-right: 8px;">
+                              <img loading="lazy" src="/failover-akamai/assets/images/icons/creditcard-icon.png"
+                              alt="" />
+                          </div>
+                          <div class="desc" style="width: calc(100% - 48px);">
+                              <h6 style="font-size: 12px; line-height: 120%; color: #000; margin: 0;">Saving account</h6>
+                              <p style="font-size: 13px; line-height: 16px; color: #646464; margin: 0;">Open Insta Save Account in 4 minutes.
+                              </p>
+                              <a href="https://buy.icicibank.com/savings-account/product?ius=UPIC3146IC&iup=SAVR2M7EU8P&ITM=nli_cms_SA_InstaSave_offers_for_you_opennowlive&_gl=1*1twagda*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDQ0MDg1OC41Ny4xLjE2NjQ0NTQxNTcuNTcuMC4w&_ga=2.211003475.712315686.1664164375-422774797.1662631482" style="font-size: 11.5px; margin-top: 5px; letter-spacing: .07em; padding-right: 15px; color: #f37e20; text-decoration: none; font-weight: 600; display: inline-block;">OPEN NOW <span style="position: relative; top: 2px;"> <img loading="lazy" src="/failover-akamai/assets/images/icons/more.png"
+                                alt="" /></span></a>
+                          </div>
+                       </div>
+					   
+					   <div class="offer-ul-card" style="margin-bottom: 20px;     display: flex; align-items: flex-start;">
+                          
+                        <div class="icon" style="width: 40px; margin-right: 8px;">
+                            <img loading="lazy" src="/failover-akamai/assets/images/icons/creditcard-icon.png"
+                            alt="" />
+                        </div>
+						
+						<div class="desc" style="width: calc(100% - 48px);">
+                            <h6 style="font-size: 12px; line-height: 120%; color: #000; margin: 0;">Credit Card</h6>
+                            <p style="font-size: 13px; line-height: 16px; color: #646464; margin: 0;">Get the right card for you.</p>
+                            <a href="https://loan.icicibank.com/asset-portal-all/checkEligibility?loanType=cc&WT.mc&ITM=nli_cms_offers_for_you_Credit_Card&_ga=2.218468319.712315686.1664164375-422774797.1662631482&_gl=1*1sq22vz*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDM1NzAyNS41MS4xLjE2NjQzNjI0MjcuNTkuMC4w" style="font-size: 11px; margin-top: 5px; letter-spacing: .07em; padding-right: 15px; color: #f37e20; text-decoration: none; font-weight: 600; display: inline-block;"> GET CREDIT CARD, INSTANTLY<span style="position: relative; top: 2px;"> <img loading="lazy" src="/failover-akamai/assets/images/icons/more.png"
+                              alt="" /></span></a>
+                        </div>
+                        
+                     </div>
+					   
+                   </div>
+
+                     <div class="offer-ul-list" style="padding: 0 5px; width: 50%;">
+					 
+					 <div class="offer-ul-card" style="margin-bottom: 20px;     display: flex; align-items: flex-start;">
+                            
+                        <div class="icon" style="width: 40px; margin-right: 8px;">
+                            <img loading="lazy" src="/failover-akamai/assets/images/icons/personal-loan-icon.png"
+                            alt="" />
+                        </div>
+                        <div class="desc" style="width: calc(100% - 48px);">
+                            <h6 style="font-size: 12px; line-height: 120%; color: #000; margin: 0;">Personal Loan</h6>
+                            <p style="font-size: 13px; line-height: 16px; color: #646464; margin: 0;">For all your needs, up to <b>&#8377; 50 lakh</b></p>
+                            <a href="https://buy.icicibank.com/ucj/personal?ius=KMOU29843KM&iup=PL852452&ITM=nli_cms_offers_for_you_PL_btn&_ga=2.181226977.712315686.1664164375-422774797.1662631482&_gl=1*1ic06v7*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDM1NzAyNS41MS4xLjE2NjQzNjIyMzcuNDUuMC4w" style="font-size: 11.5px; margin-top: 5px; letter-spacing: .07em; padding-right: 15px; color: #f37e20; text-decoration: none; font-weight: 600; display: inline-block;">AVAIL PERSONAL LOAN, NOW<span style="position: relative; top: 2px;"> <img loading="lazy" src="/failover-akamai/assets/images/icons/more.png"
+                              alt="" /></span></a>
+                        </div>
+                
+                     </div>
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+                      <div class="offer-ul-card" style="margin-bottom: 20px;     display: flex; align-items: flex-start;">
+                          
+                              <div class="icon" style="width: 40px; margin-right: 8px;">
+                                  <img loading="lazy" src="/failover-akamai/assets/images/icons/car-icon.png"
+                                  alt="" />
+                              </div>
+                              <div class="desc" style="width: calc(100% - 48px);">
+                                  <h6 style="font-size: 12px; line-height: 120%; color: #000; margin: 0;">Car Loan</h6>
+                                  <p style="font-size: 13px; line-height: 16px; color: #646464; margin: 0;">Drive your Dream Car home with an instant sanction </p>
+                                  <a href="https://oapnext.icicibank.com/asset-portal-all/apply-now?loanType=al&WT.mc_id=Desk_OAPN_cl_index_checkEligilibility&ITM=nli_cms_offers_for_you_Auto_Loan&_ga=2.114443457.712315686.1664164375-422774797.1662631482&_gl=1*11hdijk*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDQ0MDg1OC41Ny4xLjE2NjQ0NTQzNjQuNjAuMC4w" style="font-size: 11.5px; margin-top: 5px; letter-spacing: .07em; padding-right: 15px; color: #f37e20; text-decoration: none; font-weight: 600; display: inline-block;">AVAIL CAR LOAN, NOW <span style="position: relative; top: 2px;"> <img loading="lazy" src="/failover-akamai/assets/images/icons/more.png"
+                                    alt="" /></span></a>
+                              </div>
+                      
+                      </div>
+					  
+					  
+                      
+					  
+					  
+					 
+					 
+					 
+                   </div>
+                  
+                   
+                </div>
+            </div>
+            <div class="card-item" style="width: 280px; height: 230px; overflow: hidden; background: #fff; padding: 12px 15px; box-shadow: 0 2px 15px rgba(117,117,117,0.2); border-radius: 10px; min-height: 220px; margin: 0 10px 10px;">
+                <h5 style="font-weight: bold; font-size: 14px;color: #131317; margin: 0 0 10px;">Grow your Investment</h5>
+                <ul class="grow-list" style="margin: 0 -4px; display: flex; flex-wrap: wrap; padding: 0; list-style: none; justify-content: space-between; align-items: center; text-align: center;">
+                    <li style="display: flex; position: relative; width: 50%; margin: 10px 0; padding-bottom: 0;">
+                        <a href="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&CTA_FLAG=DEPOSITACC&ITM=nli_cms_grow_your_investment_fixed_deposi&_ga=2.109831363.712315686.1664164375-422774797.1662631482&_gl=1*8w58rs*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDM1NzAyNS41MS4xLjE2NjQzNjI1NTAuMjcuMC4w" title="" style="text-decoration: none; width: 100%;">
+                            <div class="icon">
+                                 <img loading="lazy" style="width: 38px; height: 38px; margin: 0 auto 5px;" src="/failover-akamai/assets/images/icons/cc-icon.png" alt="" />
+                            </div>
+                            <p style="margin: 0; font-size: 12px; font-weight: 700; color: #000;">Fixed Deposit</p>
+                        </a>
+                    </li>
+                    <li style="display: flex; position: relative; width: 50%; margin: 10px 0; padding-bottom: 0;">
+                      <a href="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&CTA_FLAG=CTAMFALL&ITM=nli_cms_grow_your_investment_Mutual_Fund&_ga=2.105098437.712315686.1664164375-422774797.1662631482&_gl=1*ixd3si*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NDM1NzAyNS41MS4xLjE2NjQzNjI1NTAuMjcuMC4w" title="" style="text-decoration: none; width: 100%;">
+                          <div class="icon">
+                               <img loading="lazy" style="width: 38px; height: 38px; margin: 0 auto 5px;" src="/failover-akamai/assets/images/icons/mf-icon.png" alt="" />
+                          </div>
+                          <p style="margin: 0; font-size: 12px; font-weight: 700; color: #000;">Mutual Fund</p>
+                      </a>
+                  </li>
+                  <li style="display: flex; position: relative; width: 50%; margin: 10px 0; padding-bottom: 0;">
+                    <a href="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_personalb_personal_login_btn&CTA_FLAG=IDR&utm_source=nonloggedin&utm_medium=website&utm_campaign=3in1&utm_id=M52&utm_term=.&utm_content=?&_gl=1*qj65yy*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NTM5MTYwMy43Ni4xLjE2NjUzOTE3NzAuNDAuMC4w#toptitle%20ITM=nli_online_trading_demat_account_apply_for_three_in_one" title="" style="text-decoration: none; width: 100%;" target="_Blank">
+                        <div class="icon">
+                             <img loading="lazy" style="width: 38px; height: 38px; margin: 0 auto 5px;" src="/failover-akamai/assets/images/icons/invest-icon-o.svg" alt="invest" />
+                        </div>
+                        <p style="margin: 0; font-size: 12px; font-weight: 700; color: #000;">Invest in Stocks</p>
+                    </a>
+                </li>
+                <li style="display: flex; position: relative; width: 50%; margin: 10px 0; padding-bottom: 0;">
+                  <a href="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_personalb_personal_login_btn&CTA_FLAG=RRETJ&_gl=1*yfiqp3*_ga*NDIyNzc0Nzk3LjE2NjI2MzE0ODI.*_ga_SKB78GHTFV*MTY2NTM5MTYwMy43Ni4xLjE2NjUzOTE5MDkuNTIuMC4w" title="" style="text-decoration: none; width: 100%;">
+                      <div class="icon">
+                           <img loading="lazy" style="width: 38px; height: 38px; margin: 0 auto 5px;" src="/failover-akamai/assets/images/icons/rd-icon.png" alt="" />
+                      </div>
+                      <p style="margin: 0; font-size: 12px; font-weight: 700; color: #000;">Retirement Planning</p>
+                  </a>
+              </li>
+                </ul>
+            </div>
+            <div class="card-item" style="width: 280px; height: 230px; overflow: hidden; background: #fff0e5; padding: 12px 15px; box-shadow: 0 2px 15px rgba(117,117,117,0.2); border-radius: 10px; min-height: 220px; margin: 0 10px 10px; position: relative;">
+              <div class="imTopCon">
+                <div class="titleiMobile" style="display: flex;">
+                        <h5 style="font-weight: bold; font-size: 14px;color: #131317; margin: 0 0 10px; width: 35%;">iMobile - Pay</h5>
+                        <div class="rating" style="display: flex; background: rgba(246,155,81,0.2); width: 150px; border-radius: 10px; letter-spacing: .05em; color: #646464; font-size: 10px;     margin-left: 10px; justify-content: space-around; align-items: center; height: 16px;">
+                            <img loading="lazy" src="/failover-akamai/assets/images/icons/start-large-orange.svg" alt="Android (4.4)" style="width: 10px;">
+                            <span>Android (4.6) / IOS (4.7)</span>
+                        </div>
+                    </div>
+                <p class="sub-title-imobile" style="font-size: 11px; font-weight: 600; line-height: 120%; color: #646464; margin: 0;">An app that provides payments and banking services to customers of any bank.</p>
+            </div>
+
+            <div class="iMobilecard" style="padding-top: 15px; display: flex;">
+              <div class="content" style="width: calc(100% - 75px);">
+                  <h4 style="font-size: 14px; font-weight: 700; line-height: 100%;letter-spacing: -0.02em; color: #646464; margin: 0px 0px 5px;">104M+ Downloads</h4>
+                  <p style="margin: 0; font-size: 12px; font-weight: 600; color: #646464;">Best Banking Experience</p>
+                 
+              <a href="#" class="ic-more" target="_blank" tabindex="0" style="font-size: 11.5px; margin-top: 5px; letter-spacing: .07em; padding-right: 15px; color: #f37e20; text-decoration: none; font-weight: 600; display: inline-block; position: absolute; bottom: 20px;">KNOW MORE <span style="position: relative; top: 2px;"> <img loading="lazy" src="/failover-akamai/assets/images/icons/more.png" alt=""></span></a>
+              </div>
+              <div class="qrSec" style="max-width: 75px; margin-right: 15px;">
+                  <div class="m-hide" style="max-width: 80px;">
+                      <a href="#" class="impbile" tabindex="0">
+                          <img loading="lazy" src="/failover-akamai/assets/images/icons/iMobile-Pay-QR-100322.png" alt="Best Banking Experience" style="max-width: 105px; width: 100%;">
+                      </a>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+          
+        </div>
+    </div>
+</div>
+<!-- card-section End -->
+        </div>   
+      </div>
+    </div>
+   </div>
+  </div>
+</section>
+
+
+ <!--Digital Banking-->
+ <div class="online-services-section" style="background-color: #fff; position: relative;">
+    <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px;box-sizing: border-box; position: relative; box-sizing: border-box;">
+          <div class="online-services-inner" style="display: flex; flex-wrap: wrap;">
+              <div class="left-content" style="padding-top: 40px; width: 40%; max-width: 500px;">
+                  <h2 class="section-title" style="font-weight: 700; margin: 0; color: #3d3d3d;font-size: 26px; text-transform: uppercase;     line-height: 115%;">DIGITAL BANKING</h2>
+                  <h3 style="font-size: 18px; margin: 0px 0px 30px; color: #a7a7a7; font-weight: 800;">Advance. Innovative. Instant</h3>
+                  <div class="btn-wrapper">
+                      <label style="border: 1px solid #f37e20; border-radius: 100px;min-width: 210px; height: 34px; cursor: pointer; font-size: 14px; color: #4b4b4b; padding: 8px 45px;">
+                        <span class="mark-box" style="width: 8px; height: 8px; background-color: #f37e20; border-radius: 50px;     display: inline-block; margin-right: 10px;"></span>
+                        Mobile Banking
+                      </label>
+					  <label style="border: 1px solid #f37e20; border-radius: 100px;min-width: 210px; height: 34px; cursor: pointer; font-size: 14px; color: #4b4b4b; padding: 8px 55px;">
+                      <span class="mark-box" style="width: 8px; height: 8px; background-color: #f37e20; border-radius: 50px;     display: inline-block; margin-right: 10px;"></span>
+                      Net Banking
+                    </label>
+					<label style="border: 1px solid #f37e20; border-radius: 100px;min-width: 210px; height: 34px; cursor: pointer; font-size: 14px; color: #4b4b4b; padding: 8px 34px;">
+                      <span class="mark-box" style="width: 8px; height: 8px; background-color: #f37e20; border-radius: 50px;     display: inline-block; margin-right: 10px; margin-top:40px;"></span>
+                      WhatsApp Banking
+                    </label>
+					
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+                  </div>
+              
+              </div>
+              <div class="media" style="width: 60%; text-align: center; position: relative; z-index: 2;">
+                  <img loading="lazy" src="/failover-akamai/assets/images/digital-banking.gif" alt="" style="position: relative;"/>
+                  <!--<div class="qrcodeboxs" style="display: flex; position: absolute; bottom: 5px; right: 17px;">
+                    <div class="qrcodebox" style="margin-right: 20px;">
+                        <div class="qrcode-icon" style="background: 0; border-radius: 0 10px 10px 0; border-left: 0; padding-left: 20px; border: 1px solid #d5d5d5; padding: 7px 10px; display: flex; border-left: none;">
+                            <div class="media" style="margin-right: 10px;">
+                                <img loading="lazy" src="failover-akamai/assets/images/imobilepay-qrcode.png" alt="QR Icon" style="width: 50px;">
+                            </div>
+                            <div class="content" style="width: calc(100% - 60px); text-align: left;">
+                                <p style="font-size: 12px; font-weight: 600; line-height: 1.3; margin: 0;">Download <br>iMobile App
+                                </p>
+                                <p style="font-size: 10px; color: #f37e20; font-weight: 600; line-height: 1.3; margin: 0;">Click to Enlarge</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="qrcodebox">
+                      <div class="qrcode-icon" style="background: 0; order-radius: 0 10px 10px 0; border-left: 0; padding-left: 20px; border: 1px solid #d5d5d5; padding: 7px 10px; display: flex;">
+                          <div class="media" style="margin-right: 10px;">
+                              <img loading="lazy" src="failover-akamai/assets/images/imobilepay-qrcode.png" alt="QR Icon" style="width: 50px;">
+                          </div>
+                          <div class="content" style="width: calc(100% - 60px); text-align: left;">
+                              <p style="font-size: 12px; font-weight: 600; line-height: 1.3; margin: 0;">Download <br>iMobile App
+                              </p>
+                              <p style="font-size: 10px; color: #f37e20; font-weight: 600; line-height: 1.3; margin: 0;">Click to Enlarge</p>
+                          </div>
+                      </div>
+
+                  </div>
+                    
+                </div>-->
+              </div>
+          </div>
+
+          <div class="bg-white" style="background-color: #fff; width: 100%; height: 143px; margin-top: -130px; margin-bottom: -45px; position: relative; z-index: 1;">
+          </div>
+      </div>
+</div>
+<!--End-->
+
+<!--Net Banking-->
+<!--<div class="online-services-section" style="background-color: #fff; position: relative; border-top: 80px solid #fff7eb;">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px;box-sizing: border-box; position: relative;">
+        <div class="online-services-inner" style="display: flex; flex-wrap: wrap;">
+            <div class="left-content" style="padding-top: 40px; width: 40%; max-width: 500px;">
+                <h2 class="section-title" style="font-weight: 700; margin: 0; color: #3d3d3d;font-size: 26px; text-transform: uppercase;     line-height: 115%;">DIGITAL BANKING</h2>
+                <h3 style="font-size: 18px; margin: 0px 0px 30px; color: #a7a7a7; font-weight: 800;">Advance. Innovative. Instant</h3>
+                <div class="btn-wrapper">
+                    <label style="border: 1px solid #f37e20; border-radius: 100px;min-width: 210px; height: 34px; cursor: pointer; font-size: 14px; color: #4b4b4b; padding: 8px 55px;">
+                      <span class="mark-box" style="width: 8px; height: 8px; background-color: #f37e20; border-radius: 50px;     display: inline-block; margin-right: 10px;"></span>
+                      Net Banking
+                    </label>
+                </div>
+            </div>
+            <div class="media" style="width: 60%; text-align: center; position: relative; z-index: 2;">
+                <img loading="lazy" src="failover-akamai/assets/images/net-banking.png" alt="" style="position: relative; z-index: 1;"/>
+            </div>
+        </div>
+        <div class="bg-white" style="background-color: #fff; width: 100%; height: 143px; margin-top: -130px; margin-bottom: -45px; position: relative; z-index: 1;">
+        </div>
+    </div>
+</div>-->
+<!--End-->
+
+<!--Net Banking-->
+<!--<div class="online-services-section" style="background-color: #fff; position: relative; border-top: 80px solid #fff7eb;">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px;box-sizing: border-box; position: relative;">
+        <div class="online-services-inner" style="display: flex; flex-wrap: wrap;">
+            <div class="left-content" style="padding-top: 40px; width: 40%; max-width: 500px;">
+                <h2 class="section-title" style="font-weight: 700; margin: 0; color: #3d3d3d;font-size: 26px; text-transform: uppercase;     line-height: 115%;">DIGITAL BANKING</h2>
+                <h3 style="font-size: 18px; margin: 0px 0px 30px; color: #a7a7a7; font-weight: 800;">Advance. Innovative. Instant</h3>
+                <div class="btn-wrapper">
+                    <label style="border: 1px solid #f37e20; border-radius: 100px;min-width: 210px; height: 34px; cursor: pointer; font-size: 14px; color: #4b4b4b; padding: 8px 34px;">
+                      <span class="mark-box" style="width: 8px; height: 8px; background-color: #f37e20; border-radius: 50px;     display: inline-block; margin-right: 10px;"></span>
+                      WhatsApp Banking
+                    </label>
+                </div>
+            </div>
+            <div class="media" style="width: 60%; text-align: center; position: relative; z-index: 2;">
+                <img loading="lazy" src="failover-akamai/assets/images/whatsApp-banking.png" alt="" style="position: relative; z-index: 1;"/>
+            </div>
+        </div>
+        <div class="bg-white" style="background-color: #fff; width: 100%; height: 143px; margin-top: -130px; margin-bottom: -45px; position: relative; z-index: 1;">
+        </div>
+    </div>
+</div>-->
+<!--End-->
+
+ <!-- security-section starts -->
+ <section class="security-section" style="background: #fff7eb; position: relative; overflow: hidden; padding: 80px 0 60px;">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px;box-sizing: border-box;">
+     <h2 class="section-title" style="max-width: 50%; width: 100%; text-align: left;font-size: 26px; text-transform: uppercase; font-weight: 300; margin: 0px 0px 20px; line-height: 115%; color: #3d3d3d;"><strong>We take your security</strong></br>seriously !</h2>
+     <div class="content" style=" margin: 0 -20px; display: flex; justify-content: space-between;">
+        <div class="block" style="width: 30%; display: inline-flex; padding: 0 20px; position: relative; align-items: center; justify-content: flex-end; vertical-align: middle;">
+           <p style="width: 100%; display: inline-block; opacity: 0.8; font-size: 18px; line-height: 1.4; vertical-align: middle; margin:0;">Peace of mind for you as we have the most advanced technology & protection</p>
+        </div>
+        <div class="block" style="width: 20%; display: inline-flex; padding: 0 20px; position: relative; align-items: center; justify-content: flex-end; vertical-align: middle; border-left: 1px solid #c9dbe1;">
+           <span class="icon" style="display: inline-block; vertical-align: middle;"><img loading="lazy" src="/failover-akamai/assets/images/icons/two_factor_icon.png"
+                 alt="two factor"></span>
+           <p style="width: 100%; display: inline-block; opacity: 0.8; font-size: 18px; line-height: 1.4; vertical-align: middle; margin:0; width: calc(100% - 43px); padding-left: 15px;">2 Factor i-safe authentication</p>
+        </div>
+        <div class="block" style="width: 20%; display: inline-flex; padding: 0 20px; position: relative; align-items: center; justify-content: flex-end; vertical-align: middle; border-left: 1px solid #c9dbe1;">
+           <span class="icon"><img loading="lazy" src="/failover-akamai/assets/images/icons/e_to_e_en.png" alt="end to end"></span>
+           <p style="width: 100%; display: inline-block; opacity: 0.8; font-size: 18px; line-height: 1.4; vertical-align: middle; margin:0; width: calc(100% - 43px); padding-left: 15px;">End-to-end 256 bit Encryption</p>
+        </div>
+        <div class="block" style="width: 20%; display: inline-flex; padding: 0 20px; position: relative; align-items: center; justify-content: flex-end; vertical-align: middle; border-left: 1px solid #c9dbe1;">
+           <span class="icon" tyle="display: inline-block; vertical-align: middle;"><img loading="lazy" src="/failover-akamai/assets/images/icons/secure_contact.png"
+                 alt="Secure pay"></span>
+           <p style=" display: inline-block; opacity: 0.8; font-size: 18px; line-height: 1.4; vertical-align: middle; margin:0; width: calc(100% - 43px); padding-left: 15px;">We make you<br /> feel special</p>
+        </div>
+     </div>
+  </div>
+</section>
+<!-- security-section ends -->
+
+<footer class="footer">
+  <div class="footer-top" style="background-color: #f37e20; padding: 25px 15px 65px 15px;">
+
+</div>
+
+<div class="website-list">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; box-sizing: border-box;">
+   <div class="web-list" style="background-color: #fff; padding: 34px 40px; border-radius: 100px; box-sizing: border-box; margin-top: -50px; margin-bottom: 50px; box-shadow: 0px 4px 10px rgb(0 0 0 / 5%); display: flex; align-items: center; width: 100%;">
+      <div class="footer-logo" style="max-width: 153px; margin-right: 35px; width: 100%;">
+        <a class="logo" href=""><img loading="lazy" src="/failover-akamai/assets/images/icons/logo.png" alt="ICICI"></a>
+      </div>
+      <div class="list-of-web" style="display: flex;flex: auto; text-align: left;     margin-top: 15px; margin-right: 10px;">
+        <span style="font-size: 15px;letter-spacing: 0.05em; color: #4b4b4b; line-height: 154.4%; flex: auto;">ICICI Bank Group websites</span>
+        <select name="Group websites" onchange="location = this.value;" style="width: 200px; color: #4b4b4b; font-size: 15px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600;border-top: none; border-left: none;border-right: none; cursor: pointer; outline: none; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 96%; -webkit-appearance: none; background-size: 13px; padding: 05px;">
+          <option>Select Website</option>
+          <option value="http://www.icicigroupcompanies.com/">ICICI Group</option>
+          <option value="http://www.icicifoundation.org/">ICICI Foundation</option>
+          <option value="https://www.icicilombard.com/">ICICI Lombard General Insurance</option>
+          <option value="http://www.icicisecurities.com/">ICICI Securities</option>
+          <option value="https://www.iciciprulife.com/"> ICICI Prudential Life Insurance</option>
+          <option value="http://www.icicipruamc.com/">ICICI Prudential AMC</option>
+          <option value="http://www.iciciventure.com/">ICICI Venture</option>
+          <option value="http://www.icicidirect.com/">ICICI Direct</option>
+          <option value="http://www.icicisecuritiespd.com/">ICICI Securities Primary Dealership Ltd
+          </option>
+          <option value="http://www.dishafc.org/">DISHA Financial Counselling</option>
+          <option value="http://www.icicihfc.com/"> ICICI Home Finance</option>
+          <option value="http://www.icicihomesearch.com/">ICICI Home Search</option>
+          <option value="http://www.icicibank.com/ebor/index.html">Erstwhile The Bank of Rajasthan
+          </option>
+          <option value="https://www.icicicareers.com/Website/default.aspx">Careers</option>
+       </select>
+      </div>
+      <div class="list-of-web" style="display: flex;flex: auto; text-align: left;margin-top: 15px; margin-left: 10px;">
+        <span style="font-size: 15px;letter-spacing: 0.05em; color: #4b4b4b; line-height: 154.4%; flex: auto;">ICICI Bank Country Websites</span>
+        <select name="forma" onchange="location = this.value;" class="Other Country-Specific-Bank-Website" style="width: 200px; color: #4b4b4b; font-size: 15px; letter-spacing: 0.05em; line-height: 154.4%;flex: auto;font-weight: 600;border-top: none; border-left: none;border-right: none; cursor: pointer; outline: none; background-image: url(/failover-akamai/assets/images/icons/black-triangle.svg); background-repeat: no-repeat; background-position: 96%; -webkit-appearance: none; background-size: 13px; padding: 0 5px;">
+           <option>Select Country</option>
+           <option value="http://www.icicibank.bh/">Bahrain</option>
+           <option value="http://www.icicibank.ca/">Canada</option>
+           <option value="http://www.money2india.eu/">Europe</option>
+           <option value="http://www.icicibank.de/">Germany</option>
+           <option value="http://www.icicibank.hk/">HongKong</option>
+           <option value="http://www.icicibank.com.sg/">Singapore</option>
+           <option value="http://www.icicibank.lk/"> SriLanka</option>
+           <option value="https://www.icicibank.co.uk/">UK</option>
+           <option value="http://www.icicibankusa.com/">US</option>
+        </select>
+     </div>
+      
+   </div>
+  </div>
+</div>
+
+<div class="footer-nav" style="background: #3d3d3d; padding-top: 86px; margin: -117px 0 0;">
+  <div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; box-sizing: border-box;">
+    <div class="top-menu-list-wrapper" style="display: flex; padding-bottom: 20px; border-bottom: 1px solid rgba(230, 230, 230, 0.2); margin-bottom: 7px; width: 100%;">
+   
+      <div class="menu-list" style="flex: auto;">
+        <h5 class="label acc-label" style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; line-height: 140.62%;color: #fff; margin-bottom: 15px;">Popular Products</h5>
+        <ul class="acc-default" style="margin: 0; padding: 0; list-style: none;">
+          
+          <li style="margin-top: 12px;"><a style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;" href="saving-account.html" title="">Saving Accounts</a></li>
+          <li style="margin-top: 12px;"><a style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;" href="credit-card.html" title="">Credit Cards</a></li>
+          <li style="margin-top: 12px;"><a style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;" href="home-loan.html" title="">Home Loan</a></li>
+          <li style="margin-top: 12px;"><a style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;" href="personal-loan.html" title="">Personal Loan</a></li>
+          <li style="margin-top: 12px;"><a href="car-loan.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Car Loan</a></li>
+          <li style="margin-top: 12px;"><a href="gold-loan.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Gold Loan</a></li>
+          <li style="margin-top: 12px;"><a style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;" href="fixed-deposit.html" title="">Fixed Deposit</a></li>
+        </ul>
+      </div>
+      <div class="menu-list" style="flex: auto;">
+        <h5 class="label acc-label" style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; line-height: 140.62%;color: #fff; margin-bottom: 15px;">CUSTOMER CARE NUMBERS</h5>
+		
+	
+		
+		
+		<ul class="tel-info" style="margin:0; padding: 0; list-style: none;">
+           <li class="title" style="max-width: 180px; margin: 0 0 5px; opacity: 0.8;">  
+ <a  target="_self" style="font-size: 13px; line-height: 140.62%; letter-spacing: 0.05em; color: #afafaf; text-decoration: none;">Personal Banking</a>
+
+
+           </li>
+           <li class="tel" style="margin-bottom: 17px;">
+ <a  target="_self" data-app="" class="deeplinking" style="font-size: 12px; line-height: 140.62%; letter-spacing: 0.05em; color: #fff; text-decoration: none; font-weight: bold;">1860 120 7777</a>
+             </li>
+         
+  <li class="title" style="max-width: 180px; margin: 0 0 5px; opacity: 0.8;">
+ <a  target="_self" data-app="" style="font-size: 13px; line-height: 140.62%; letter-spacing: 0.05em; color: #afafaf; text-decoration: none;">Wealth / Private Banking</a>
+           </li>
+           <li class="tel" style="margin-bottom: 17px;">
+           
+ <a target="_self" data-app="" style="font-size: 12px; line-height: 140.62%; letter-spacing: 0.05em; color: #fff; text-decoration: none; font-weight: bold;">1800 103 8181</a>
+             </li>
+         
+  <li class="title" style="max-width: 180px; margin: 0 0 5px; opacity: 0.8;">
+ <a  target="_self" style="font-size: 13px; line-height: 140.62%; letter-spacing: 0.05em; color: #afafaf; text-decoration: none;">Corporate / Business/ Retail Institutional Banking</a>
+</li>
+  <li class="tel" style="margin-bottom: 17px;">
+ <a target="_self" data-app="" style="font-size: 12px; line-height: 140.62%; letter-spacing: 0.05em; color: #fff; text-decoration: none; font-weight: bold;">1860 120 6699</a>
+  </li>
+         
+  <li class="title" style="max-width: 180px; margin: 0 0 5px; opacity: 0.8;"> 
+ <a target="_self" data-app="https://www.icicibank.com/customer-care.page?ITM=nli_cms_credit-card_customer_care_footer_link" class="deeplinking" style="font-size: 13px; line-height: 140.62%; letter-spacing: 0.05em; color: #afafaf; text-decoration: none;">ICICI Bank Credit Card Number</a>
+</li>
+<li class="tel" style="margin-bottom: 17px;">
+ <a target="_self" data-app="https://www.icicibank.com/customer-care.page?ITM=nli_cms_credit-card_customer_care_footer_link" style="font-size: 12px; line-height: 140.62%; letter-spacing: 0.05em; color: #fff; text-decoration: none; font-weight: bold;">1800 1020 1239</a>
+</li>
+         </ul>
+		
+		
+      </div>
+	  
+	  
+	  
+      <div class="menu-group" style="flex: auto;">
+        <div class="menu-list">
+          <h5 class="label acc-label" style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; line-height: 140.62%;color: #fff; margin-bottom: 15px;">Others</h5>
+          <ul class="acc-default" style="margin: 0; padding: 0; list-style: none;">
+            <li style="margin-top: 12px;"><a href="do-not-call.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Do Not Call Registry</a></li>
+			
+            <li style="margin-top: 12px;"><a href="disclaimer.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Disclaimer</a></li>
+			
+            <li style="margin-top: 12px;"><a href="multilingual-disclaimer.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Multilingual Disclaimer</a></li>
+      
+            <li style="margin-top: 12px;"><a href="/failover-akamai/assets/documents/code_of_business_conduct_ethics.pdf" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Group Code of Business Conduct and Ethics</a></li>
+			
+            <li style="margin-top: 12px;"><a href="unparliamentary-language-by-customers.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Use of Unparliamentary Language by Customers</a></li>
+			
+            <li style="margin-top: 12px;"><a href="privacy.html" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Privacy</a></li>
+			
+            <li style="margin-top: 12px;"><a href="/failover-akamai/assets/documents/bank-fair-practices-code.pdf" title="" style="color: #afafaf; text-decoration: none;font-size: 13px; letter-spacing: 0.05em;">Fair Practice Code for Lenders</a></li>
+			
+            
+          </ul>
+        </div>
+       
+      </div>
+      <div class="menu-group">
+      
+        <div class="social-media-links">
+          <h5 class="label" style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; line-height: 140.62%;color: #fff; margin: 40px 0 20px;">get social</h5>
+          <ul style="display: flex; margin: 0; padding: 0; list-style: none;">
+            <li style="margin-right: 25px;">
+              <a href="https://www.facebook.com/icicibank" title="">
+                <span class="n-icon"><img loading="lazy" src="/failover-akamai/assets/images/icons/facebook.svg" alt="facebook" /></span>
+              </a>
+            </li>
+            <li style="margin-right: 25px;">
+              <a href="https://twitter.com/icicibank" title="">
+                <span class="n-icon"><img loading="lazy" src="/failover-akamai/assets/images/icons/twitter.svg" alt="twitter" /></span>
+              </a>
+            </li>
+            <li style="margin-right: 25px;">
+              <a href="https://in.linkedin.com/company/icici-bank" title="">
+                <span class="n-icon"><img loading="lazy" src="/failover-akamai/assets/images/icons/linkedin.svg" alt="linkedin" /></span>
+               
+              </a>
+            </li>
+            <li style="margin-right: 25px;">
+              <a href="https://www.youtube.com/user/icicibank" title="">
+                <span class="n-icon"><img loading="lazy" src="/failover-akamai/assets/images/icons/youtube.svg" alt="youtube"/></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-store-links">
+          <h5 class="label" style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; line-height: 140.62%;color: #fff; margin-bottom: 15px;">Install iMobile app</h5>
+          <ul style="display: flex; margin: 0; padding: 0; list-style: none;">
+            <li style="margin-right: 5px;">
+              <a href="https://apps.apple.com/in/app/imobile-by-icici-bank/id375276006" title=""><img loading="lazy" src="/failover-akamai/assets/images/icons/app_store_white.png" alt="App Store"
+                  loading="lazy" /></a>
+            </li>
+            <li>
+              <a href="https://play.google.com/store/apps/details?id=com.csam.icici.bank.imobile&hl=en_IN" title=""><img loading="lazy" src="/failover-akamai/assets/images/icons/google_play_white.png" alt="Google Play"
+                  loading="lazy" /></a>
+            </li>
+          </ul>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+<div class="auto-container" style="max-width: 1260px; width: 100%; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; box-sizing: border-box;">
+<div class="copy-right-row" style="padding: 25px 0px;">
+  <p style="margin: 0; color: #afafaf; opacity: 0.8; font-size: 14px;">Copyright&#169; 2022 . All rights Reserved. </p>
+</div>
+</div>
+
+</div>
+</footer>
+
+</body>
+
+</html>
