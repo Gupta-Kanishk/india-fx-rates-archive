@@ -26,7 +26,12 @@ jobs:
       - name: Install wkhtmltopdf
         run: |
           sudo apt-get update
-          sudo apt-get install -y wkhtmltopdf
+          candidate=$(apt-cache policy wkhtmltopdf | awk '/Candidate:/ {print $2}')
+          if [ "$candidate" = "(none)" ]; then
+            echo "::warning::wkhtmltopdf is unavailable; HTML pages will be archived without PDF conversion."
+          else
+            sudo apt-get install -y wkhtmltopdf
+          fi
 
       - name: Install dependencies
         run: |
